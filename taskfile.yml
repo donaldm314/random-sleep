@@ -1,0 +1,23 @@
+# https://taskfile.dev
+
+version: '3.38'
+
+interval: '100ms'
+
+vars:
+
+tasks:
+  default:
+    deps: [test]
+
+  test:
+    watch: true
+    sources:
+      - '**/*.sh'
+      - '**/*.bats'
+    cmds:
+      - bats **/*.bats
+
+  clean:
+    cmds:
+     - rm -f *.log *~
