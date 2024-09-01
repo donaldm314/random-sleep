@@ -20,9 +20,32 @@ setup() {
     run -0 parse_args 1
 }
 
+@test "Integer regex" {
+    int='42'
+    [[ "${int}" =~ $is_an_integer ]]
+}
+
+@test "Seconds regex" {
+    seconds='42s'
+    [[ "${seconds}" =~ $is_in_seconds ]]
+}
+
+@test "Minutes regex" {
+    minutes='42m'
+    [[ "${minutes}" =~ $is_in_minutes ]]
+}
 
 @test "Random delay is an integer >= 0, <= arg" {
     max=2
+    set_max_sleep $max
+    run a_random_amount
+    [[ "${output}" =~ $is_an_integer ]]
+    [[ "${output}" -ge 0 ]]
+    [[ "${output}" -le $max ]]
+}
+
+@test "Big delay is an int >= 0, <= arg" {
+    max=642
     set_max_sleep $max
     run a_random_amount
     [[ "${output}" =~ $is_an_integer ]]

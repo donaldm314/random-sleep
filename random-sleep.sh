@@ -57,7 +57,7 @@ parse_args() {
 a_random_amount() {
     local max_sleep=$(get_max_sleep)
     integer=$(echo $max_sleep | sed 's/[smhd]//')
-    suffix=$(echo $max_sleep | sed 's/[0-9]//')
+    suffix=$(echo $max_sleep | sed 's/[0-9]//g')
 
     RANDOM=$$  # seed with our PID
     random_integer=$(expr $RANDOM % ${integer})
