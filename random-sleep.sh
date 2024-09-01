@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 integer='^[0-9]+$'
-number='^[0-9]+\.[0-9]+$'
 
 _MAX_SLEEP=
 
@@ -25,8 +24,16 @@ parse_args() {
     set_max_sleep $1
 }
 
+get_random_sleep() {
+    local max_sleep=$(get_max_sleep)
+    RANDOM=$$  # seed with our PID
+    random_delay=$(expr $RANDOM % ${max_sleep})
+    echo $random_delay >> log
+    echo $random_delay
+}
+
 call_sleep() {
-    sleep $(get_max_sleep)
+    sleep $(get_random_sleep)
 }
 
 main() {

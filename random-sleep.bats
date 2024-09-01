@@ -23,3 +23,12 @@ setup() {
 @test "Exits 0 if passed a number" {
     run parse_args 1.0
 }
+
+@test "Random delay is an integer >= 0, <= arg" {
+    max=2
+    set_max_sleep $max
+    run get_random_sleep
+    [[ "${output}" =~ $integer ]]
+    [[ "${output}" -ge 0 ]]
+    [[ "${output}" -le $max ]]
+}
