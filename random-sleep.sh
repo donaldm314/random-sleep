@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
 
-is_an_integer='^[0-9]+$'
-is_in_seconds='^[0-9]+s$'
-is_in_minutes='^[0-9]+m$'
-is_in_hours='^[0-9]+h$'
-is_in_days='^[0-9]+d$'
-
-_MAX_SLEEP=
-
 usage() {
     cat <<EOF
 
@@ -21,6 +13,14 @@ Sleeps for a random delay between 0 and MAX_DELAY,
 by calling $(which sleep).
 EOF
 }
+
+is_an_integer='^[0-9]+$'
+is_in_seconds='^[0-9]+s$'
+is_in_minutes='^[0-9]+m$'
+is_in_hours='^[0-9]+h$'
+is_in_days='^[0-9]+d$'
+
+_MAX_SLEEP=
 
 set_max_sleep() {
     _MAX_SLEEP="$1"
@@ -73,8 +73,7 @@ a_random_amount() {
     RANDOM=$$ # seed with our PID
     random_integer=$((RANDOM % integer))
     random_sleep="${random_integer}${suffix}"
-    name="$(basename "${0}")"
-    logger "${name} PID $$ sleeping for ${random_sleep}"
+    logger "$(basename "${0}") PID $$ sleeping for ${random_sleep}"
     echo "${random_sleep}"
 }
 
