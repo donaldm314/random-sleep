@@ -12,7 +12,7 @@ usage() {
     cat <<EOF
 ${0} MAX_DELAY[SUFFIX]
     Where MAX_DELAY is an integer, optionally with the SUFFIX 's' for seconds (the default), 'm' for minutes, 'h' for hours, or 'd' for days.
-    Sleeps for a random delay between 0 and <max sleep>.
+    Sleeps for a random delay between 0 and <max sleep>, by calling sleep.
 EOF
 }
 
