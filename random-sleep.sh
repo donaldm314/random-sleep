@@ -11,7 +11,7 @@ _MAX_SLEEP=
 usage() {
     cat <<EOF
 
-Usage: $(basename ${0}) MAX_DELAY[SUFFIX]
+Usage: $(basename "${0}") MAX_DELAY[SUFFIX]
 
 Where MAX_DELAY is an integer, optionally with the
 SUFFIX 's' for seconds (the default), 'm' for minutes,
@@ -23,11 +23,11 @@ EOF
 }
 
 set_max_sleep() {
-    _MAX_SLEEP=$1
+    _MAX_SLEEP="$1"
 }
 
 get_max_sleep() {
-    echo ${_MAX_SLEEP}
+    echo "${_MAX_SLEEP}"
 }
 
 parse_args() {
@@ -44,7 +44,7 @@ parse_args() {
         [[ $1 =~ $is_in_minutes ]] ||
         [[ $1 =~ $is_in_hours ]] ||
         [[ $1 =~ $is_in_days ]]; then
-        set_max_sleep $1
+        set_max_sleep "$1"
     else
         echo "ERROR: Bad argument!"
         usage
@@ -54,33 +54,35 @@ parse_args() {
 
 get_suffix() {
     local delay=$1
-    suffix=$(echo $delay | sed 's/[0-9]//g')
+    suffix=${delay//[0-9]/}
     echo "${suffix}"
 }
 
 get_integer() {
     local delay=$1
-    integer=$(echo $delay | sed 's/[smhd]//')
+    integer=${delay//[smhd]/}
     echo "${integer}"
 }
 
 a_random_amount() {
-    local max_sleep=$(get_max_sleep)
-    integer=$(get_integer $max_sleep)
-    suffix=$(get_suffix $max_sleep)
+    local max_sleep
+    max_sleep=$(get_max_sleep)
+    integer=$(get_integer "$max_sleep")
+    suffix=$(get_suffix "$max_sleep")
 
     RANDOM=$$ # seed with our PID
-    random_integer=$(expr $RANDOM % ${integer})
+    random_integer=$((RANDOM % integer))
     random_sleep="${random_integer}${suffix}"
-    logger "$(basename ${0}) PID $$ sleeping for ${random_sleep}"
+    name="$(basename "${0}")"
+    logger "${name} PID $$ sleeping for ${random_sleep}"
     echo "${random_sleep}"
 }
 
 main() {
-    parse_args $@
-    sleep $(a_random_amount)
+    parse_args "$@"
+    sleep "$(a_random_amount)"
 }
 
 if [ "${BASH_SOURCE[0]}" == "${0}" ]; then
-    main $@
+    main "$@"
 fi
