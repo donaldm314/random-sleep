@@ -25,7 +25,7 @@ setup() {
     max=2
     set_max_sleep $max
     run a_random_amount
-    [[ "${output}" =~ $integer ]]
+    [[ "${output}" =~ $is_an_integer ]]
     [[ "${output}" -ge 0 ]]
     [[ "${output}" -le $max ]]
 }
@@ -35,7 +35,7 @@ setup() {
     run -0 parse_args $max
     set_max_sleep $max
     run a_random_amount
-    [[ "${output}" =~ $seconds ]]
+    [[ "${output}" =~ $is_in_seconds ]]
 }
 
 @test "Supports 'm' suffix for minutes" {
@@ -43,7 +43,7 @@ setup() {
     run -0 parse_args $max
     set_max_sleep $max
     run a_random_amount
-    [[ "${output}" =~ $minutes ]]
+    [[ "${output}" =~ $is_in_minutes ]]
 }
 
 @test "Supports 'h' suffix for hours" {
@@ -51,7 +51,7 @@ setup() {
     run -0 parse_args $max
     set_max_sleep $max
     run a_random_amount
-    [[ "${output}" =~ $hours ]]
+    [[ "${output}" =~ $is_in_hours ]]
 }
 
 @test "Supports 'd' suffix for days" {
@@ -59,5 +59,5 @@ setup() {
     run -0 parse_args $max
     set_max_sleep $max
     run a_random_amount
-    [[ "${output}" =~ $days ]]
+    [[ "${output}" =~ $is_in_days ]]
 }

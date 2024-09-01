@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-integer='^[0-9]+$'
-seconds='^[0-9]+s$'
-minutes='^[0-9]+m$'
-hours='^[0-9]+h$'
-days='^[0-9]+d$'
+is_an_integer='^[0-9]+$'
+is_in_seconds='^[0-9]+s$'
+is_in_minutes='^[0-9]+m$'
+is_in_hours='^[0-9]+h$'
+is_in_days='^[0-9]+d$'
 
 _MAX_SLEEP=
 
@@ -35,11 +35,11 @@ parse_args() {
         exit 2
     fi
 
-    if [[ $1 =~ $integer ]] || 
-        [[ $1 =~ $seconds ]] ||
-        [[ $1 =~ $minutes ]] ||
-        [[ $1 =~ $hours ]] ||
-        [[ $1 =~ $days ]]; then
+    if [[ $1 =~ $is_an_integer ]] || 
+        [[ $1 =~ $is_in_seconds ]] ||
+        [[ $1 =~ $is_in_minutes ]] ||
+        [[ $1 =~ $is_in_hours ]] ||
+        [[ $1 =~ $is_in_days ]]; then
         set_max_sleep $1
     else
         echo "ERROR: Bad argument!"
