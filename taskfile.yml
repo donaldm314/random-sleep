@@ -8,7 +8,15 @@ vars:
 
 tasks:
   default:
-    deps: [test]
+    deps: [check, test]
+
+  check:
+    watch: true
+    sources:
+      - '**/*.sh'
+      - '**/*.bats'
+    cmds:
+      - shellcheck *.sh
 
   test:
     watch: true
