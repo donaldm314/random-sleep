@@ -21,16 +21,26 @@ setup() {
 }
 
 @test "Integer regex" {
+    int='4'
+    [[ "${int}" =~ $is_an_integer ]]
     int='42'
+    [[ "${int}" =~ $is_an_integer ]]
+    int='421'
     [[ "${int}" =~ $is_an_integer ]]
 }
 
 @test "Seconds regex" {
+    seconds='2s'
+    [[ "${seconds}" =~ $is_in_seconds ]]
+    seconds='42s'
+    [[ "${seconds}" =~ $is_in_seconds ]]
     seconds='42s'
     [[ "${seconds}" =~ $is_in_seconds ]]
 }
 
 @test "Minutes regex" {
+    minutes='4m'
+    [[ "${minutes}" =~ $is_in_minutes ]]
     minutes='42m'
     [[ "${minutes}" =~ $is_in_minutes ]]
 }
