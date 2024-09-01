@@ -16,7 +16,7 @@ tasks:
       - '**/*.sh'
       - '**/*.bats'
     cmds:
-      - bats **/*.bats
+      - bats .
 
   clean:
     cmds:
