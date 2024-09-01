@@ -16,7 +16,7 @@ tasks:
       - '**/*.sh'
       - '**/*.bats'
     cmds:
-      - shellcheck *.sh
+      - shellcheck *.sh test/*.bats
 
   test:
     watch: true
