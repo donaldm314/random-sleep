@@ -4,7 +4,7 @@
 bats_require_minimum_version 1.5.0
 
 setup() {
-    export random_sleep="${BATS_TEST_DIRNAME}"/random-sleep.sh
+    export random_sleep="${BATS_TEST_DIRNAME}"/../random-sleep.sh
     source $random_sleep
 }
 
