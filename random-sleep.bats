@@ -9,21 +9,17 @@ setup() {
 }
 
 @test "Exits 1 if no args provided" {
-    run parse_args
-    [ "${status}" -eq 1 ]
+    run -1 parse_args
 }
 
 @test "Exits 2 if multiple args provided" {
-    run parse_args 1 2
-    [ "${status}" -eq 2 ]
+    run -2 parse_args 1 2
 }
 
 @test "Exits 0 if passed an integer" {
     run parse_args 1
-    [ "${status}" -eq 0 ]
 }
 
 @test "Exits 0 if passed a number" {
     run parse_args 1.0
-    [ "${status}" -eq 0 ]
 }
