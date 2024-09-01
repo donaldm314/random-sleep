@@ -39,9 +39,7 @@ parse_args() {
         echo "ERROR: Too many args supplied!"
         usage
         exit 2
-    fi
-
-    if [[ $1 =~ $is_an_integer ]] ||
+    elif [[ $1 =~ $is_an_integer ]] ||
         [[ $1 =~ $is_in_seconds ]] ||
         [[ $1 =~ $is_in_minutes ]] ||
         [[ $1 =~ $is_in_hours ]] ||
