@@ -7,7 +7,7 @@ jobs:
   checkout-and-test:
     runs-on: ubuntu-latest
     container:
-      image: donaldm314/ubuntu-bats:101
+      image: donaldm314/ubuntu-bats:102
       options: --user root
     steps:
       - uses: actions/checkout@v4
