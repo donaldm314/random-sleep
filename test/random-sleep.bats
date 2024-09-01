@@ -112,6 +112,13 @@ setup() {
     for char in 's' 'm' 'h' 'd'; do
         delay="42${char}"
         run -0 get_suffix $delay
-        [[ "${output}" -eq ${char} ]]
+        [[ "${output}" == ${char} ]]
+    done
+}
+
+@test "Get integer - no suffix" {
+    for delay in '1' '23' '432' '24352'; do
+        run -0 get_integer $delay
+        [[ "${output}" -eq $delay ]]
     done
 }

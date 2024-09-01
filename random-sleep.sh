@@ -60,9 +60,15 @@ get_suffix() {
     echo "${suffix}"
 }
 
+get_integer() {
+    local delay=$1
+    integer=$(echo $delay | sed 's/[smhd]//')
+    echo "${integer}"
+}
+
 a_random_amount() {
     local max_sleep=$(get_max_sleep)
-    integer=$(echo $max_sleep | sed 's/[smhd]//')
+    integer=$(get_integer $max_sleep)
     suffix=$(get_suffix $max_sleep)
 
     RANDOM=$$ # seed with our PID
