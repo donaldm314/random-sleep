@@ -62,7 +62,7 @@ a_random_amount() {
     RANDOM=$$ # seed with our PID
     random_integer=$(expr $RANDOM % ${integer})
     random_sleep="${random_integer}${suffix}"
-    logger "PID $$ sleeping for ${random_sleep}"
+    logger "$(basename ${0}) PID $$ sleeping for ${random_sleep}"
     echo "${random_sleep}"
 }
 
