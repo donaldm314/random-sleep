@@ -17,12 +17,9 @@ setup() {
 }
 
 @test "Exits 0 if passed an integer" {
-    run parse_args 1
+    run -0 parse_args 1
 }
 
-@test "Exits 0 if passed a number" {
-    run parse_args 1.0
-}
 
 @test "Random delay is an integer >= 0, <= arg" {
     max=2
@@ -31,4 +28,36 @@ setup() {
     [[ "${output}" =~ $integer ]]
     [[ "${output}" -ge 0 ]]
     [[ "${output}" -le $max ]]
+}
+
+@test "Supports 's' suffix for seconds" {
+    max="2s"
+    run -0 parse_args $max
+    set_max_sleep $max
+    run get_random_sleep
+    [[ "${output}" =~ $seconds ]]
+}
+
+@test "Supports 'm' suffix for minutes" {
+    max="2m"
+    run -0 parse_args $max
+    set_max_sleep $max
+    run get_random_sleep
+    [[ "${output}" =~ $minutes ]]
+}
+
+@test "Supports 'h' suffix for hours" {
+    max="2h"
+    run -0 parse_args $max
+    set_max_sleep $max
+    run get_random_sleep
+    [[ "${output}" =~ $hours ]]
+}
+
+@test "Supports 'd' suffix for days" {
+    max="2d"
+    run -0 parse_args $max
+    set_max_sleep $max
+    run get_random_sleep
+    [[ "${output}" =~ $days ]]
 }

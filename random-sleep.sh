@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 integer='^[0-9]+$'
+seconds='^[0-9]+s$'
+minutes='^[0-9]+m$'
+hours='^[0-9]+h$'
+days='^[0-9]+d$'
 
 _MAX_SLEEP=
 
@@ -21,24 +25,32 @@ parse_args() {
         exit 2
     fi
 
-    set_max_sleep $1
+    if [[ $1 =~ $integer ]] || 
+        [[ $1 =~ $seconds ]] ||
+        [[ $1 =~ $minutes ]] ||
+        [[ $1 =~ $hours ]] ||
+        [[ $1 =~ $days ]]; then
+        set_max_sleep $1
+    else
+        echo "ERROR: Bad argument!"
+        exit 3
+    fi
 }
 
 get_random_sleep() {
     local max_sleep=$(get_max_sleep)
     RANDOM=$$  # seed with our PID
-    random_delay=$(expr $RANDOM % ${max_sleep})
-    echo $random_delay >> log
-    echo $random_delay
+    integer=$(echo $max_sleep | sed 's/[smhd]//')
+    suffix=$(echo $max_sleep | sed 's/[0-9]//')
+    random_integer=$(expr $RANDOM % ${integer})
+    random_sleep="${random_integer}${suffix}"
+    echo "${random_sleep}"
 }
 
-call_sleep() {
-    sleep $(get_random_sleep)
-}
 
 main() {
     parse_args $@
-    call_sleep
+    sleep $(get_random_sleep)
 }
 
 if [ "${BASH_SOURCE[0]}" == "${0}" ]; then
