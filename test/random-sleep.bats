@@ -61,6 +61,13 @@ setup() {
     [[ "${output}" =~ $is_in_seconds ]]
 }
 
+@test "Big 's' delay works" {
+    max='642s'
+    set_max_sleep $max
+    run a_random_amount
+    [[ "${output}" =~ $is_in_seconds ]]
+}
+
 @test "Supports 'm' suffix for minutes" {
     max="2m"
     run -0 parse_args $max

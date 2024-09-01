@@ -13,11 +13,11 @@ usage() {
 
 Usage: $(basename ${0}) MAX_DELAY[SUFFIX]
 
-Where MAX_DELAY is an integer, optionally with the 
-SUFFIX 's' for seconds (the default), 'm' for minutes, 
+Where MAX_DELAY is an integer, optionally with the
+SUFFIX 's' for seconds (the default), 'm' for minutes,
 'h' for hours, or 'd' for days.
 
-Sleeps for a random delay between 0 and MAX_DELAY, 
+Sleeps for a random delay between 0 and MAX_DELAY,
 by calling $(which sleep).
 EOF
 }
@@ -41,7 +41,7 @@ parse_args() {
         exit 2
     fi
 
-    if [[ $1 =~ $is_an_integer ]] || 
+    if [[ $1 =~ $is_an_integer ]] ||
         [[ $1 =~ $is_in_seconds ]] ||
         [[ $1 =~ $is_in_minutes ]] ||
         [[ $1 =~ $is_in_hours ]] ||
@@ -59,12 +59,12 @@ a_random_amount() {
     integer=$(echo $max_sleep | sed 's/[smhd]//')
     suffix=$(echo $max_sleep | sed 's/[0-9]//g')
 
-    RANDOM=$$  # seed with our PID
+    RANDOM=$$ # seed with our PID
     random_integer=$(expr $RANDOM % ${integer})
     random_sleep="${random_integer}${suffix}"
+    logger "PID $$ sleeping for ${random_sleep}"
     echo "${random_sleep}"
 }
-
 
 main() {
     parse_args $@
