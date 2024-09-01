@@ -101,3 +101,17 @@ setup() {
     run a_random_amount
     [[ "${output}" =~ $is_in_days ]]
 }
+
+@test "Get suffix - no suffix" {
+    delay='2'
+    run -0 get_suffix $delay
+    [[ "${output}" -eq '' ]]
+}
+
+@test "Get suffix - (smhd) suffix" {
+    for char in 's' 'm' 'h' 'd'; do
+        delay="42${char}"
+        run -0 get_suffix $delay
+        [[ "${output}" -eq ${char} ]]
+    done
+}
