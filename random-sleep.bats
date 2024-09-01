@@ -24,7 +24,7 @@ setup() {
 @test "Random delay is an integer >= 0, <= arg" {
     max=2
     set_max_sleep $max
-    run get_random_sleep
+    run a_random_amount
     [[ "${output}" =~ $integer ]]
     [[ "${output}" -ge 0 ]]
     [[ "${output}" -le $max ]]
@@ -34,7 +34,7 @@ setup() {
     max="2s"
     run -0 parse_args $max
     set_max_sleep $max
-    run get_random_sleep
+    run a_random_amount
     [[ "${output}" =~ $seconds ]]
 }
 
@@ -42,7 +42,7 @@ setup() {
     max="2m"
     run -0 parse_args $max
     set_max_sleep $max
-    run get_random_sleep
+    run a_random_amount
     [[ "${output}" =~ $minutes ]]
 }
 
@@ -50,7 +50,7 @@ setup() {
     max="2h"
     run -0 parse_args $max
     set_max_sleep $max
-    run get_random_sleep
+    run a_random_amount
     [[ "${output}" =~ $hours ]]
 }
 
@@ -58,6 +58,6 @@ setup() {
     max="2d"
     run -0 parse_args $max
     set_max_sleep $max
-    run get_random_sleep
+    run a_random_amount
     [[ "${output}" =~ $days ]]
 }

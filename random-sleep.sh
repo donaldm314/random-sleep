@@ -48,7 +48,7 @@ parse_args() {
     fi
 }
 
-get_random_sleep() {
+a_random_amount() {
     local max_sleep=$(get_max_sleep)
     RANDOM=$$  # seed with our PID
     integer=$(echo $max_sleep | sed 's/[smhd]//')
@@ -61,7 +61,7 @@ get_random_sleep() {
 
 main() {
     parse_args $@
-    sleep $(get_random_sleep)
+    sleep $(a_random_amount)
 }
 
 if [ "${BASH_SOURCE[0]}" == "${0}" ]; then
